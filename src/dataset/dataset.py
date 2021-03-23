@@ -17,9 +17,9 @@ def defined_dataset_loader(batch_size):
     valid_X, valid_y = valid['X'], valid['y']
     test_X, test_y = test['X'], test['y']
 
-    trainloader = get_loader(train_X.reshape(train_X.shape[0], -1), train_y, batch_size)
-    validloader = get_loader(valid_X.reshape(valid_X.shape[0], -1), valid_y, batch_size)
-    testloader = get_loader(test_X.reshape(test_X.shape[0], -1), test_y, batch_size)
+    trainloader = get_loader(train_X, train_y, batch_size)
+    validloader = get_loader(valid_X, valid_y, batch_size)
+    testloader = get_loader(test_X, test_y, batch_size)
 
     return trainloader, validloader, testloader
 

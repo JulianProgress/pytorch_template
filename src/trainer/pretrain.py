@@ -36,10 +36,16 @@ class RegressionTrainer:
             self.net = LeNet_1D(**net_param)
         self.device = device
         self.optimizer = getattr(optim, optimizer)(self.net.parameters(), **optimizer_param)
+
+        try:
+            self.loss_fn = getattr(nn, loss_fn)(**loss_param)
+        except:
+            print("Oops! No such loss function in torch.nn package")
+
         if hasattr(nn, loss_fn):
             self.loss_fn = getattr(nn, loss_fn)(**loss_param)
-        elif loss_fn == "EXPLoss":
-            self.loss_fn = ExpDecayLoss(**loss_param, device=self.device)
+        else:
+            self.loss_fn = loss_fn()
         self.train_loader = train_loader
         self.validation_loader = validation_loader
         self.test_loader = test_loader
